@@ -165,51 +165,100 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
   Future<String?> _selectVenueForClient() async {
     final databaseService = Provider.of<DatabaseService>(context, listen: false);
 
-    // Obtener todas las zonas para luego obtener todos los venues
     List<VenueModel> allVenues = [];
-    // Aquí necesitarías implementar un método para obtener todos los venues
-    // Por simplicidad, mostraremos un diálogo de texto para ingresar el venue ID
+    try {
+      allVenues = await databaseService.getAllVenues().first;
+    } catch (e) {
+      _showSnackBar('Error al cargar los locales');
+      return null;
+    }
 
-    String? venueId = await showDialog<String>(
+    if (allVenues.isEmpty) {
+      _showSnackBar('No hay locales disponibles');
+      return null;
+    }
+
+    return await showDialog<String>(
       context: context,
-      builder: (context) {
-        String inputVenueId = '';
-        return AlertDialog(
-          title: Text('Asignar Local'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Ingresa el ID del local para este cliente:'),
-              SizedBox(height: 16),
-              TextField(
-                onChanged: (value) => inputVenueId = value,
-                decoration: InputDecoration(
-                  labelText: 'ID del Local',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, inputVenueId),
-              child: Text('Asignar'),
-            ),
-          ],
-        );
-      },
+      builder: (context) => _VenueSelectionDialog(venues: allVenues),
     );
-
-    return venueId?.isNotEmpty == true ? venueId : null;
   }
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
+    );
+  }
+}
+
+class _VenueSelectionDialog extends StatefulWidget {
+  final List<VenueModel> venues;
+
+  const _VenueSelectionDialog({required this.venues});
+
+  @override
+  _VenueSelectionDialogState createState() => _VenueSelectionDialogState();
+}
+
+class _VenueSelectionDialogState extends State<_VenueSelectionDialog> {
+  String _searchQuery = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final filteredVenues = widget.venues
+        .where((v) => v.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
+
+    return AlertDialog(
+      title: Text('Seleccionar Local'),
+      content: SizedBox(
+        width: double.maxFinite,
+        height: 400,
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Buscar local...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) => setState(() => _searchQuery = value),
+            ),
+            SizedBox(height: 8),
+            Expanded(
+              child: filteredVenues.isEmpty
+                  ? Center(child: Text('No se encontraron locales'))
+                  : ListView.builder(
+                      itemCount: filteredVenues.length,
+                      itemBuilder: (context, index) {
+                        final venue = filteredVenues[index];
+                        return ListTile(
+                          leading: Icon(Icons.store),
+                          title: Text(venue.name),
+                          subtitle: venue.location.isNotEmpty
+                              ? Text(
+                                  venue.location,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : null,
+                          trailing: venue.isPremium
+                              ? Icon(Icons.star, color: Colors.amber)
+                              : null,
+                          onTap: () => Navigator.pop(context, venue.id),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('Cancelar'),
+        ),
+      ],
     );
   }
 }
