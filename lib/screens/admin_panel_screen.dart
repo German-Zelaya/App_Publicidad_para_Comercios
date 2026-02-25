@@ -58,7 +58,7 @@ class AdminPanelScreen extends StatelessWidget {
                     context,
                     'Gestionar Locales',
                     Icons.store,
-                    Colors.purple,
+                    Colors.red,
                         () => Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => AdminVenuesScreen()),

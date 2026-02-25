@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF4A148C),
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(20),
@@ -33,11 +33,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  letterSpacing: 6,
+                  color: Color(0xFFFF1744),
+                  shadows: [
+                    Shadow(
+                      color: Color(0xFFFF1744),
+                      blurRadius: 20,
+                    ),
+                    Shadow(
+                      color: Color(0xFFFF1744).withOpacity(0.6),
+                      blurRadius: 45,
+                    ),
+                    Shadow(
+                      color: Color(0xFFFF0000).withOpacity(0.3),
+                      blurRadius: 80,
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 50),
               Card(
+                color: Color(0xFF1A1A1A),
                 child: Padding(
                   padding: EdgeInsets.all(20),
                   child: Column(
@@ -76,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? CircularProgressIndicator(color: Colors.white)
                             : Text(_isLogin ? 'Iniciar Sesión' : 'Registrarse'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF4A148C),
+                          backgroundColor: Color(0xFFCC0000),
                           foregroundColor: Colors.white,
                           minimumSize: Size(double.infinity, 50),
                         ),

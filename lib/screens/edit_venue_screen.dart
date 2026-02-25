@@ -148,7 +148,7 @@ class _EditVenueScreenState extends State<EditVenueScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4A148C),
+                              color: Color(0xFFCC0000),
                             ),
                           ),
                           SizedBox(height: 16),
@@ -253,7 +253,7 @@ class _EditVenueScreenState extends State<EditVenueScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4A148C),
+                              color: Color(0xFFCC0000),
                             ),
                           ),
                           SizedBox(height: 12),
@@ -311,7 +311,7 @@ class _EditVenueScreenState extends State<EditVenueScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4A148C),
+                              color: Color(0xFFCC0000),
                             ),
                           ),
                           SizedBox(height: 12),

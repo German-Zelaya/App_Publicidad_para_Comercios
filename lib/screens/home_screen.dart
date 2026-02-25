@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final isWeb = kIsWeb;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           CustomNavBar(
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderSide: BorderSide.none,
                             ),
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: Color(0xFF1A1A1A),
                           ),
                         ),
                       ),
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xFF4A148C), Color(0xFF7B1FA2)],
+                colors: [Color(0xFF1A0000), Color(0xFF4D0000)],
               ),
               borderRadius: isWeb ? BorderRadius.circular(15) : null,
             ),
@@ -262,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                        Color(0xFF4A148C)),
+                        Color(0xFFFF1744)),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -422,8 +422,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: index % 2 == 0
-                            ? Colors.blue[800]
-                            : Colors.purple[800],
+                            ? Color(0xFF8B0000)
+                            : Color(0xFF5C0000),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -462,8 +462,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: index % 2 == 0
-                            ? Colors.blue[800]
-                            : Colors.purple[800],
+                            ? Color(0xFF8B0000)
+                            : Color(0xFF5C0000),
                         foregroundColor: Colors.white,
                         minimumSize: Size(double.infinity, isWeb ? 50 : 60),
                         shape: RoundedRectangleBorder(
@@ -503,7 +503,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFFCC0000),
                       width: 1,
                     ),
                   ),
@@ -578,7 +578,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircularProgressIndicator(
                     strokeWidth: 1.5,
                     valueColor: AlwaysStoppedAnimation<Color>(
-                        Color(0xFF4A148C)),
+                        Color(0xFFFF1744)),
                   ),
                 ),
               ),
@@ -622,7 +622,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // Widget de respaldo con iniciales para el menú
   Widget _buildMenuInitialsAvatar(UserModel user) {
     return Container(
-      color: Color(0xFF4A148C),
+      color: Color(0xFFCC0000),
       child: Center(
         child: Text(
           user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',

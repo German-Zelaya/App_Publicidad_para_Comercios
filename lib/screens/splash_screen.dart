@@ -4,7 +4,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF4A148C),
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -14,12 +14,27 @@ class SplashScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                letterSpacing: 6,
+                color: Color(0xFFFF1744),
+                shadows: [
+                  Shadow(
+                    color: Color(0xFFFF1744),
+                    blurRadius: 20,
+                  ),
+                  Shadow(
+                    color: Color(0xFFFF1744).withOpacity(0.6),
+                    blurRadius: 45,
+                  ),
+                  Shadow(
+                    color: Color(0xFFFF0000).withOpacity(0.3),
+                    blurRadius: 80,
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 20),
             CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF1744)),
             ),
           ],
         ),
