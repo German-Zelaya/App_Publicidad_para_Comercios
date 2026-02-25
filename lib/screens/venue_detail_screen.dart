@@ -232,55 +232,123 @@ class VenueDetailScreen extends StatelessWidget {
                               SizedBox(height: 20),
                             ],
 
-                            // Redes sociales
-                            if (venue.socialMedia.isNotEmpty) ...[
-                              Text(
-                                'Whats app y redes',
-                                style: TextStyle(
-                                  fontSize: isWeb ? 22 : 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF4A148C),
-                                ),
-                              ),
-                              SizedBox(height: 12),
-                              Container(
-                                padding: EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Column(
-                                  children: venue.socialMedia.entries.map((entry) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 4),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            _getSocialIcon(entry.key),
-                                            color: Colors.white,
-                                            size: isWeb ? 28 : 24,
-                                          ),
-                                          SizedBox(width: 12),
-                                          Expanded(
-                                            child: GestureDetector(
-                                              onTap: () => _openSocialMedia(entry.key, entry.value),
-                                              child: Text(
-                                                entry.key.toUpperCase(),
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: isWeb ? 18 : 16,
+                            // Botón circular de WhatsApp
+                            Builder(builder: (_) {
+                              final whatsappNumber =
+                                  venue.socialMedia['WhatsApp'] ??
+                                  venue.socialMedia['whatsapp'];
+                              if (whatsappNumber == null || whatsappNumber.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+                              final btnSize = isWeb ? 80.0 : 70.0;
+                              final iconSize = isWeb ? 42.0 : 36.0;
+                              return Column(
+                                children: [
+                                  Center(
+                                    child: Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () => _openWhatsApp(whatsappNumber),
+                                          borderRadius: BorderRadius.circular(btnSize),
+                                          child: Container(
+                                            width: btnSize,
+                                            height: btnSize,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF25D366),
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0xFF25D366).withOpacity(0.4),
+                                                  blurRadius: 10,
+                                                  offset: Offset(0, 4),
                                                 ),
-                                              ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              Icons.message,
+                                              color: Colors.white,
+                                              size: iconSize,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
+                                        ),
+                                        SizedBox(height: 6),
+                                        Text(
+                                          'WhatsApp',
+                                          style: TextStyle(
+                                            color: Color(0xFF25D366),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: isWeb ? 16 : 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
+                                ],
+                              );
+                            }),
+
+                            // Otras redes sociales (sin WhatsApp)
+                            Builder(builder: (_) {
+                              final otherSocial = Map.fromEntries(
+                                venue.socialMedia.entries.where(
+                                  (e) => e.key.toLowerCase() != 'whatsapp',
                                 ),
-                              ),
-                            ],
+                              );
+                              if (otherSocial.isEmpty) return const SizedBox.shrink();
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Redes Sociales',
+                                    style: TextStyle(
+                                      fontSize: isWeb ? 22 : 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF4A148C),
+                                    ),
+                                  ),
+                                  SizedBox(height: 12),
+                                  Container(
+                                    padding: EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Column(
+                                      children: otherSocial.entries.map((entry) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 4),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                _getSocialIcon(entry.key),
+                                                color: Colors.white,
+                                                size: isWeb ? 28 : 24,
+                                              ),
+                                              SizedBox(width: 12),
+                                              Expanded(
+                                                child: GestureDetector(
+                                                  onTap: () => _openSocialMedia(
+                                                      entry.key, entry.value),
+                                                  child: Text(
+                                                    entry.key.toUpperCase(),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: isWeb ? 18 : 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
                           ],
                         ),
                       ),
@@ -311,18 +379,23 @@ class VenueDetailScreen extends StatelessWidget {
   }
 
   void _openLocation(String location) async {
-    final url = 'https://www.google.com/maps/search/?api=1&query=$location';
-    if (await canLaunch(url)) {
-      await launch(url);
+    final uri = Uri.parse(
+        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(location)}');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  void _openWhatsApp(String number) async {
+    final uri = Uri.parse('https://wa.me/$number');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 
   void _openSocialMedia(String platform, String handle) async {
     String url;
     switch (platform.toLowerCase()) {
-      case 'whatsapp':
-        url = 'https://wa.me/$handle';
-        break;
       case 'facebook':
         url = 'https://facebook.com/$handle';
         break;
@@ -335,9 +408,9 @@ class VenueDetailScreen extends StatelessWidget {
       default:
         url = handle;
     }
-
-    if (await canLaunch(url)) {
-      await launch(url);
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 }
