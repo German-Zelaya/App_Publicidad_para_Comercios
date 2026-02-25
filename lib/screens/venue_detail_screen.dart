@@ -387,10 +387,17 @@ class VenueDetailScreen extends StatelessWidget {
   }
 
   void _openWhatsApp(String number) async {
-    final uri = Uri.parse('https://wa.me/$number');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    // Limpiar el número: quitar espacios, guiones, paréntesis
+    final cleaned = number.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    // Intentar abrir directo en la app de WhatsApp
+    final appUri = Uri.parse('whatsapp://send?phone=$cleaned');
+    if (await canLaunchUrl(appUri)) {
+      await launchUrl(appUri, mode: LaunchMode.externalApplication);
+      return;
     }
+    // Fallback: abrir wa.me en el navegador
+    final webUri = Uri.parse('https://wa.me/$cleaned');
+    await launchUrl(webUri, mode: LaunchMode.externalApplication);
   }
 
   void _openSocialMedia(String platform, String handle) async {
