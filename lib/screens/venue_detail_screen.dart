@@ -214,22 +214,56 @@ class VenueDetailScreen extends StatelessWidget {
                               SizedBox(height: 20),
                             ],
 
-                            // Botón de ubicación
+                            // Botón circular de Ubicación
                             if (venue.location.isNotEmpty) ...[
-                              ElevatedButton.icon(
-                                onPressed: () => _openLocation(venue.location),
-                                icon: Icon(Icons.location_on),
-                                label: Text('ubicación'),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green,
-                                  foregroundColor: Colors.white,
-                                  minimumSize: Size(double.infinity, isWeb ? 55 : 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 20),
+                              Builder(builder: (_) {
+                                final btnSize = isWeb ? 80.0 : 70.0;
+                                final iconSize = isWeb ? 42.0 : 36.0;
+                                return Column(
+                                  children: [
+                                    Center(
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () => _openLocation(venue.location),
+                                            borderRadius: BorderRadius.circular(btnSize),
+                                            child: Container(
+                                              width: btnSize,
+                                              height: btnSize,
+                                              decoration: BoxDecoration(
+                                                color: Colors.green[700],
+                                                shape: BoxShape.circle,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.green.withOpacity(0.4),
+                                                    blurRadius: 10,
+                                                    offset: Offset(0, 4),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.gps_fixed,
+                                                color: Colors.white,
+                                                size: iconSize,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 6),
+                                          Text(
+                                            'Ubicación',
+                                            style: TextStyle(
+                                              color: Colors.green[700],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: isWeb ? 16 : 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 20),
+                                  ],
+                                );
+                              }),
                             ],
 
                             // Botón circular de WhatsApp
@@ -379,11 +413,14 @@ class VenueDetailScreen extends StatelessWidget {
   }
 
   void _openLocation(String location) async {
-    final uri = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(location)}');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    final Uri uri;
+    if (location.startsWith('http://') || location.startsWith('https://')) {
+      uri = Uri.parse(location);
+    } else {
+      uri = Uri.parse(
+          'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(location)}');
     }
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
   void _openWhatsApp(String number) async {
