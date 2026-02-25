@@ -59,7 +59,7 @@ class _AdminVenuesScreenState extends State<AdminVenuesScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4A148C),
+                              color: Color(0xFFCC0000),
                             ),
                           ),
                           SizedBox(height: 16),
@@ -195,7 +195,7 @@ class _AdminVenuesScreenState extends State<AdminVenuesScreen> {
                                 ? CircularProgressIndicator()
                                 : Text('Agregar Local'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF4A148C),
+                              backgroundColor: Color(0xFFCC0000),
                               foregroundColor: Colors.white,
                               minimumSize: Size(double.infinity, 50),
                             ),
@@ -218,7 +218,7 @@ class _AdminVenuesScreenState extends State<AdminVenuesScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4A148C),
+                              color: Color(0xFFCC0000),
                             ),
                           ),
                           SizedBox(height: 16),
@@ -244,7 +244,7 @@ class _AdminVenuesScreenState extends State<AdminVenuesScreen> {
                                           width: double.infinity,
                                           padding: EdgeInsets.all(16),
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF4A148C),
+                                            color: Color(0xFFCC0000),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(4),
                                               topRight: Radius.circular(4),

@@ -54,7 +54,7 @@ class VenueDetailScreen extends StatelessWidget {
               color: Colors.grey[300],
               child: Center(
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4A148C)),
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFCC0000)),
                 ),
               ),
             );
@@ -164,7 +164,7 @@ class VenueDetailScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: isWeb ? 32 : 28,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF4A148C),
+                                color: Color(0xFFCC0000),
                               ),
                             ),
                             SizedBox(height: 8),
@@ -184,7 +184,7 @@ class VenueDetailScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: isWeb ? 24 : 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF4A148C),
+                                  color: Color(0xFFCC0000),
                                 ),
                               ),
                               SizedBox(height: 12),
@@ -338,7 +338,7 @@ class VenueDetailScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: isWeb ? 22 : 18,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xFF4A148C),
+                                      color: Color(0xFFCC0000),
                                     ),
                                   ),
                                   SizedBox(height: 12),

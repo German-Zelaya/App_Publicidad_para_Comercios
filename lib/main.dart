@@ -31,10 +31,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Fin-D',
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          brightness: Brightness.dark,
+          primarySwatch: Colors.red,
+          scaffoldBackgroundColor: Colors.black,
+          cardColor: Color(0xFF1A1A1A),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           appBarTheme: AppBarTheme(
-            backgroundColor: Color(0xFF4A148C),
+            backgroundColor: Colors.black,
             foregroundColor: Colors.white,
           ),
         ),

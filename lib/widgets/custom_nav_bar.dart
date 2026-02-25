@@ -41,7 +41,7 @@ class CustomNavBar extends StatelessWidget {
                   height: 16,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4A148C)),
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFCC0000)),
                   ),
                 ),
               ),
@@ -74,7 +74,7 @@ class CustomNavBar extends StatelessWidget {
               height: 16,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4A148C)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFCC0000)),
               ),
             ),
           ),
@@ -87,7 +87,7 @@ class CustomNavBar extends StatelessWidget {
   // Widget de respaldo con iniciales
   Widget _buildInitialsAvatar(UserModel user) {
     return Container(
-      color: Color(0xFF4A148C),
+      color: Color(0xFFCC0000),
       child: Center(
         child: Text(
           user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',
@@ -111,11 +111,11 @@ class CustomNavBar extends StatelessWidget {
         bottom: 8,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
+            color: Colors.red.withOpacity(0.15),
+            blurRadius: 8,
             offset: Offset(0, 2),
           ),
         ],
@@ -125,7 +125,7 @@ class CustomNavBar extends StatelessWidget {
           // Botón de retroceso o espacio
           if (showBackButton)
             IconButton(
-              icon: Icon(Icons.arrow_back, color: Color(0xFF4A148C)),
+              icon: Icon(Icons.arrow_back, color: Color(0xFFFF1744)),
               onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
             )
           else
@@ -139,7 +139,18 @@ class CustomNavBar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF4A148C),
+                letterSpacing: 4,
+                color: Color(0xFFFF1744),
+                shadows: [
+                  Shadow(
+                    color: Color(0xFFFF1744),
+                    blurRadius: 12,
+                  ),
+                  Shadow(
+                    color: Color(0xFFFF1744).withOpacity(0.5),
+                    blurRadius: 25,
+                  ),
+                ],
               ),
             ),
           ),
@@ -154,7 +165,7 @@ class CustomNavBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Color(0xFF4A148C),
+                    color: Color(0xFFCC0000),
                     width: 2,
                   ),
                 ),

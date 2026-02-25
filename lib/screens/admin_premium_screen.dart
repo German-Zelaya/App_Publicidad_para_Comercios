@@ -159,14 +159,14 @@ class _AdminPremiumScreenState extends State<AdminPremiumScreen> {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.add_photo_alternate, color: Color(0xFF4A148C)),
+                              Icon(Icons.add_photo_alternate, color: Color(0xFFCC0000)),
                               SizedBox(width: 8),
                               Text(
                                 'Agregar Imagen al Carrusel',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF4A148C),
+                                  color: Color(0xFFCC0000),
                                 ),
                               ),
                             ],
@@ -274,7 +274,7 @@ class _AdminPremiumScreenState extends State<AdminPremiumScreen> {
                                 ? CircularProgressIndicator()
                                 : Text('Agregar al Carrusel'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF4A148C),
+                              backgroundColor: Color(0xFFCC0000),
                               foregroundColor: Colors.white,
                               minimumSize: Size(double.infinity, 50),
                             ),
@@ -297,7 +297,7 @@ class _AdminPremiumScreenState extends State<AdminPremiumScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4A148C),
+                              color: Color(0xFFCC0000),
                             ),
                           ),
                           SizedBox(height: 12),

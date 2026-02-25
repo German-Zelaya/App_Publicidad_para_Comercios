@@ -51,7 +51,7 @@ class VenueCard extends StatelessWidget {
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4A148C)),
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF1744)),
                   ),
                 ),
               ),
@@ -146,7 +146,7 @@ class VenueCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF4A148C),
+                          color: Color(0xFFFF1744),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -189,7 +189,7 @@ class VenueCard extends StatelessWidget {
                 padding: EdgeInsets.all(12),
                 child: Icon(
                   Icons.arrow_forward_ios,
-                  color: Color(0xFF4A148C),
+                  color: Color(0xFFFF1744),
                   size: 20,
                 ),
               ),

@@ -106,7 +106,7 @@ class _AdminZonesScreenState extends State<AdminZonesScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF4A148C),
+                            color: Color(0xFFCC0000),
                           ),
                         ),
                         SizedBox(height: 16),
@@ -137,7 +137,7 @@ class _AdminZonesScreenState extends State<AdminZonesScreen> {
                               ? CircularProgressIndicator()
                               : Text('Agregar Zona'),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF4A148C),
+                            backgroundColor: Color(0xFFCC0000),
                             foregroundColor: Colors.white,
                             minimumSize: Size(double.infinity, 50),
                           ),

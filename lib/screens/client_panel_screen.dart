@@ -237,7 +237,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFFCC0000),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -263,7 +263,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFFCC0000),
                     ),
                   ),
                   SizedBox(height: 12),
@@ -293,7 +293,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                     icon: Icon(Icons.camera_alt),
                     label: Text('Cambiar Imagen Principal'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF4A148C),
+                      backgroundColor: Color(0xFFCC0000),
                       foregroundColor: Colors.white,
                     ),
                   ),
@@ -315,7 +315,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFFCC0000),
                     ),
                   ),
                   SizedBox(height: 12),
@@ -350,7 +350,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                     icon: Icon(Icons.photo_library),
                     label: Text('Cambiar Cartelera'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple,
+                      backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
                     ),
                   ),
@@ -372,7 +372,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFFCC0000),
                     ),
                   ),
                   SizedBox(height: 12),
@@ -425,7 +425,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF4A148C),
+                          color: Color(0xFFCC0000),
                         ),
                       ),
                     ],
@@ -475,13 +475,13 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF4A148C),
+                          color: Color(0xFFCC0000),
                         ),
                       ),
                       IconButton(
                         onPressed: _addSocialMedia,
                         icon: Icon(Icons.add),
-                        color: Color(0xFF4A148C),
+                        color: Color(0xFFCC0000),
                       ),
                     ],
                   ),
