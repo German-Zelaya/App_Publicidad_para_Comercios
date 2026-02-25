@@ -378,12 +378,31 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
                   SizedBox(height: 12),
                   TextField(
                     controller: _locationController,
+                    keyboardType: TextInputType.url,
+                    onChanged: (_) => setState(() {}),
                     decoration: InputDecoration(
-                      labelText: 'Dirección o coordenadas',
+                      labelText: 'Enlace de ubicación',
+                      hintText: 'Pega el enlace de Google Maps',
+                      helperText: 'Google Maps → tu local → Compartir → Copiar enlace',
                       border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.location_on),
+                      prefixIcon: Icon(Icons.gps_fixed, color: Colors.green[700]),
                     ),
                   ),
+                  if (_locationController.text.trim().isNotEmpty) ...[
+                    SizedBox(height: 8),
+                    Text(
+                      _locationController.text.trim().startsWith('http')
+                          ? 'Enlace listo ✓'
+                          : 'Texto guardado (se buscará en Google Maps)',
+                      style: TextStyle(
+                        color: _locationController.text.trim().startsWith('http')
+                            ? Colors.green[700]
+                            : Colors.orange[700],
+                        fontSize: 13,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
