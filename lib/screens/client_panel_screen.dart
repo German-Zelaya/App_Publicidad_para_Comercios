@@ -20,6 +20,7 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
   VenueModel? _venue;
   bool _isLoading = true;
   final _locationController = TextEditingController();
+  final _whatsappController = TextEditingController();
   final _socialControllers = <String, TextEditingController>{};
   File? _mainImage;
   List<File> _galleryImages = [];
@@ -96,6 +97,16 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
     _loadVenue();
   }
 
+  @override
+  void dispose() {
+    _locationController.dispose();
+    _whatsappController.dispose();
+    for (final c in _socialControllers.values) {
+      c.dispose();
+    }
+    super.dispose();
+  }
+
   Future<void> _loadVenue() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     final databaseService = Provider.of<DatabaseService>(context, listen: false);
@@ -124,8 +135,12 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
             _venue = userVenues.first;
             print('Venue asignado: ${_venue!.name}');
             _locationController.text = _venue!.location;
+            _whatsappController.text =
+                _venue!.socialMedia['WhatsApp'] ?? _venue!.socialMedia['whatsapp'] ?? '';
             _venue!.socialMedia.forEach((key, value) {
-              _socialControllers[key] = TextEditingController(text: value);
+              if (key.toLowerCase() != 'whatsapp') {
+                _socialControllers[key] = TextEditingController(text: value);
+              }
             });
           } else {
             _venue = null;
@@ -375,6 +390,57 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
           ),
           SizedBox(height: 16),
 
+          // WhatsApp
+          Card(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.message, color: Color(0xFF25D366)),
+                      SizedBox(width: 8),
+                      Text(
+                        'WhatsApp',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF4A148C),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  TextField(
+                    controller: _whatsappController,
+                    keyboardType: TextInputType.phone,
+                    onChanged: (_) => setState(() {}),
+                    decoration: InputDecoration(
+                      labelText: 'Número de contacto',
+                      hintText: 'Ej: 59170123456',
+                      helperText: 'Ingresa tu número con código de país (591 para Bolivia)',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.message, color: Color(0xFF25D366)),
+                    ),
+                  ),
+                  if (_whatsappController.text.trim().isNotEmpty) ...[
+                    SizedBox(height: 8),
+                    Text(
+                      'Enlace: wa.me/${_whatsappController.text.trim()}',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 13,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+
           // Redes sociales
           Card(
             child: Padding(
@@ -513,13 +579,18 @@ class _ClientPanelScreenState extends State<ClientPanelScreen> {
   Future<void> _saveChanges() async {
     final databaseService = Provider.of<DatabaseService>(context, listen: false);
 
+    final Map<String, String> allSocialMedia = Map.fromEntries(
+      _socialControllers.entries
+          .where((entry) => entry.value.text.isNotEmpty)
+          .map((entry) => MapEntry(entry.key, entry.value.text)),
+    );
+    if (_whatsappController.text.trim().isNotEmpty) {
+      allSocialMedia['WhatsApp'] = _whatsappController.text.trim();
+    }
+
     Map<String, dynamic> updates = {
       'location': _locationController.text,
-      'socialMedia': Map.fromEntries(
-        _socialControllers.entries
-            .where((entry) => entry.value.text.isNotEmpty)
-            .map((entry) => MapEntry(entry.key, entry.value.text)),
-      ),
+      'socialMedia': allSocialMedia,
     };
 
     final success = await databaseService.updateVenue(
