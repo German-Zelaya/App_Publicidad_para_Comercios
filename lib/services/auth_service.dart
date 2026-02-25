@@ -293,6 +293,12 @@ class AuthService extends ChangeNotifier {
       }
 
       await _firestore.collection('users').doc(userId).update(updateData);
+
+      // Sincronizar el ownerId del local con el usuario asignado
+      if (newRole == UserRole.client && venueId != null) {
+        await _firestore.collection('venues').doc(venueId).update({'ownerId': userId});
+      }
+
       return true;
     } catch (e) {
       if (kDebugMode) {
